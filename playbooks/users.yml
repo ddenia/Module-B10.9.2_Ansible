@@ -1,0 +1,25 @@
+---
+
+- name:  Create group superusers and users
+  hosts: localhost
+  become: true
+  gather_facts: true
+
+  roles:
+    - ../roles/users
+
+  vars:
+    group:
+      - name: superusers
+        state: present
+
+    users:
+      - name: user2
+        state: present
+        comment: "user2 to group superusers"
+        password: "$6$BPhASVzDi6r6$D2khiB70gw6YMuO9gAEGUVibc5xvpl/Unqth6btIWkPwLfAmhVv2f/auaebIpKaNImP0ixfH24DKDBlUKEYZc/"
+
+      - name: user3
+        state: present
+        comment: "user3 to group superusers"
+        password: "$6$BPhASVzDi6r6$D2khiB70gw6YMuO9gAEGUVibc5xvpl/Unqth6btIWkPwLfAmhVv2f/auaebIpKaNImP0ixfH24DKDBlUKEYZc/"

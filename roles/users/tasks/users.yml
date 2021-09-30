@@ -1,0 +1,26 @@
+---
+
+- name: Add a false shell
+  lineinfile:
+    dest: "/etc/shells"
+    line: '/bin/false'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create group
+  group:
+    name: superusers
+    state: present
+
+- name: Add users
+  user:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    comment: "{{ item.comment }}"
+    home: "/home/{{ item.name }}"
+    shell: "/bin/false"
+    password: "{{ item.password }}"
+    groups: superusers
+    update_password: always
+  with_items: "{{ users }}"
