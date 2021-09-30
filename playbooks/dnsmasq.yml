@@ -1,0 +1,9 @@
+---
+
+- name: Install and configure Dnsmasq
+  hosts: localhost
+  become: true
+  gather_facts: true
+
+  roles:
+    - ../roles/dnsmasq
