@@ -1,0 +1,9 @@
+---
+
+- name: Install and configure Nginx PHP-FPM
+  hosts: localhost
+  become: true
+  gather_facts: true
+
+  roles:
+    - ../roles/nginx-phpfpm

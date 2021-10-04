@@ -1,0 +1,32 @@
+---
+
+# Nginx Configuration
+
+- name: Sets Nginx conf file
+  template:
+    src: "files/nginx.conf.j2"
+    dest: "/etc/nginx/nginx.conf"
+
+- name: Sets Site conf file
+  template:
+    src: "files/site.conf.j2"
+    dest: "/etc/nginx/conf.d/{{ http_conf }}"
+
+- name: Removes "default" site
+  file:
+    path: "/etc/nginx/conf.d/default.conf"
+    state: absent
+  notify: Restart Nginx
+
+# Creates document root
+- name: Creates directory
+  file:
+    path: "{{ document_root }}"
+    state: directory
+
+# Sets Up PHP Info Page
+- name: Sets Up PHP Info Page
+  template:
+    src: "files/info.php.j2"
+    dest: "{{ document_root }}/info.php"
+  notify: Restart Nginx
